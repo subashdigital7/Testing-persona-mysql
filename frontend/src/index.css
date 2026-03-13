@@ -290,7 +290,7 @@ body {
   display: block;
 }
 
-.post-card::before {
+.post-card {
   content: '';
   position: absolute;
   top: 0;
@@ -309,7 +309,7 @@ body {
   box-shadow: var(--shadow-glow);
 }
 
-.post-card:hover::before {
+.post-card:hover {
   opacity: 1;
 }
 
@@ -529,8 +529,8 @@ body {
   border-color: var(--accent-purple);
 }
 
-.comment-form input::placeholder,
-.comment-form textarea::placeholder {
+.comment-form input,
+.comment-form textarea {
   color: var(--text-muted);
 }
 
@@ -642,8 +642,8 @@ body {
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
+.form-group input,
+.form-group textarea {
   color: var(--text-muted);
 }
 

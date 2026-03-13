@@ -3,7 +3,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { HiChatBubbleLeft } from 'react-icons/hi2';
 
 function PostCard({ post }) {
-  const timeAgo = formatDistanceToNow(new Date(post.created_at), { addSuffix: 1 });
+  const timeAgo = formatDistanceToNow(new Date(post.created_at), { addSuffix: true });
 
   return (
     <Link to={`/post/${post.id}`} className="post-card">

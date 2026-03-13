@@ -1,0 +1,42 @@
+const { Pool } = require('mysql2/promise');
+
+const pool = mysql2.createPool({
+ host: process.env.DB_HOST,
+ user: process.env.DB_USER,
+ password: process.env.DB_PASSWORD,
+ database: process.env.DB_NAME,
+ port: process.env.DB_PORT
+});
+
+async function initDB() {
+  const client = await pool.connect();
+  try {
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS posts (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        content TEXT NOT NULL,
+        author VARCHAR(100) NOT NULL DEFAULT 'Anonymous',
+        emoji VARCHAR(10) DEFAULT '✨',
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+      );
+    `);
+
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS comments (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE,
+        author VARCHAR(100) NOT NULL DEFAULT 'Anonymous',
+        content TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT NOW()
+      );
+    `);
+
+    console.log('✅ Database tables initialized');
+  } finally {
+    client.release();
+  }
+}
+
+module.exports = { pool, initDB };

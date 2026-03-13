@@ -12,7 +12,7 @@ function CreatePost() {
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
   const [emoji, setEmoji] = useState('✨');
-  const [submitting, setSubmitting] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ function CreatePost() {
       return;
     }
 
-    setSubmitting(1);
+    setSubmitting(true);
     try {
       const res = await createPost({
         title: title.trim(),
@@ -35,7 +35,7 @@ function CreatePost() {
     } catch (err) {
       toast.error('Failed to create post 😢');
     } finally {
-      setSubmitting(0);
+      setSubmitting(false);
     }
   };
 

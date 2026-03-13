@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 function CommentSection({ postId, comments, onUpdate }) {
   const [author, setAuthor] = useState('');
   const [content, setContent] = useState('');
-  const [submitting, setSubmitting] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ function CommentSection({ postId, comments, onUpdate }) {
       return;
     }
 
-    setSubmitting(1);
+    setSubmitting(true);
     try {
       await createComment({
         post_id: postId,
@@ -30,7 +30,7 @@ function CommentSection({ postId, comments, onUpdate }) {
     } catch (err) {
       toast.error('Failed to post comment 😢');
     } finally {
-      setSubmitting(0);
+      setSubmitting(false);
     }
   };
 
@@ -78,7 +78,7 @@ function CommentSection({ postId, comments, onUpdate }) {
             <div className="comment-item-header">
               <span className="comment-author">@{comment.author}</span>
               <span className="comment-date">
-                {formatDistanceToNow(new Date(comment.created_at), { addSuffix: 1 })}
+                {formatDistanceToNow(new Date(comment.created_at), { addSuffix: true })}
               </span>
             </div>
             <p className="comment-content">{comment.content}</p>
